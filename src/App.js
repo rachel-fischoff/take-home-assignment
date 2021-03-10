@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import React from "react";
 
 function App() {
@@ -6,25 +6,56 @@ function App() {
 a badly formatted file. This line is pretty long! It's way more than 80 characters! I feel a line wrap coming on!
 
 This      is a second paragraph with extraneous whitespace.`);
-  const [textOutput, setTextOutput] = React.useState('');
+  const [textOutput, setTextOutput] = React.useState("");
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setTextInput(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     transformText(textInput);
   };
 
-  const transformText = input => {
-    let output = input;
-    /*
-    your work goes here!
-    */
+  const removeWhiteSpace = (input) => {
+    input = input.replace(/\s+/g, " ");
+    return input;
+  };
+
+  const separateBy80Characters = (input) => {
+    let maximumLineLength = 80;
+    let words = input.split(" ");
+    let paragraphArray = [""];
+    let currentLine = 0;
+    let output = "";
+
+    for (let i = 0; i < words.length; i++) {
+      //exception for when there is a word with more than 80 characters
+      words[i].length > 80
+        ? (maximumLineLength = words[i].length)
+        : (maximumLineLength = 80);
+      if (
+        paragraphArray[currentLine].length + words[i].length >
+        maximumLineLength
+      ) {
+        currentLine++;
+        paragraphArray[currentLine] = words[i] + " ";
+      } else {
+        paragraphArray[currentLine] += words[i] + " ";
+      }
+    }
+    let linesLength = paragraphArray.length;
+    for (let i = 0; i < linesLength; i++) {
+      output += paragraphArray[i] + "\n";
+    }
+    return output;
+  };
+
+  const transformText = (input) => {
+    let output = separateBy80Characters(removeWhiteSpace(input));
     setTextOutput(output);
-  }
-  
+  };
+
   return (
     <div className="App">
       <header>
@@ -32,13 +63,11 @@ This      is a second paragraph with extraneous whitespace.`);
       </header>
       <form onSubmit={handleSubmit}>
         <label>
-          <textarea onChange={handleChange} value={textInput}/>
+          <textarea onChange={handleChange} value={textInput} />
         </label>
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit" />
       </form>
-      <div id="result">
-        {textOutput}
-      </div>
+      <div id="result">{textOutput}</div>
     </div>
   );
 }
