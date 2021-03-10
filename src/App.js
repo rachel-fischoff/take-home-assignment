@@ -17,11 +17,14 @@ This      is a second paragraph with extraneous whitespace.`);
     transformText(textInput);
   };
 
+  // function to remove the extraneous white spaces and create one long string
   const removeWhiteSpace = (input) => {
     input = input.replace(/\s+/g, " ");
     return input;
   };
 
+  //breaks up the long string into paragraphs of 80 characters of less (breakinga at words)
+  //unless the word is over 80 characters than it gets its own line 
   const createParagraphs = (input) => {
     let maximumLineLength = 80;
     let words = input.split(" ");
