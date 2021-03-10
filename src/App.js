@@ -22,7 +22,7 @@ This      is a second paragraph with extraneous whitespace.`);
     return input;
   };
 
-  const separateBy80Characters = (input) => {
+  const createParagraphs = (input) => {
     let maximumLineLength = 80;
     let words = input.split(" ");
     let paragraphArray = [""];
@@ -52,22 +52,22 @@ This      is a second paragraph with extraneous whitespace.`);
   };
 
   const transformText = (input) => {
-    let output = separateBy80Characters(removeWhiteSpace(input));
+    let output = createParagraphs(removeWhiteSpace(input));
     setTextOutput(output);
   };
 
   return (
     <div className="App">
       <header>
-        <h1>Career Lab | Take-Home Assignment</h1>
+        <h1 data-testid="header">Career Lab | Take-Home Assignment</h1>
       </header>
       <form onSubmit={handleSubmit}>
         <label>
-          <textarea onChange={handleChange} value={textInput} />
+          <textarea data-testid="input" onChange={handleChange} value={textInput} />
         </label>
         <input type="submit" value="Submit" />
       </form>
-      <div id="result">{textOutput}</div>
+      <div id="result" data-testid="result">{textOutput}</div>
     </div>
   );
 }
