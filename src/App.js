@@ -47,8 +47,8 @@ This      is a second paragraph with extraneous whitespace.`);
         paragraphArray[currentLine] += words[i] + " ";
       }
     }
-    let linesLength = paragraphArray.length;
-    for (let i = 0; i < linesLength; i++) {
+    
+    for (let i = 0; i < paragraphArray.length; i++) {
       output += paragraphArray[i] + "\n";
     }
     return output;
